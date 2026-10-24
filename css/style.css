@@ -1,0 +1,48 @@
+    :root {
+      /* Paleta de Cores Vitalia 60+ (Regra 60-30-10) */
+      --bg-60: #FDFBF7;           /* Off-White Quente (Fundo Principal) */
+      --bg-card: #F4EFEA;         /* Sepia Suave para Cards */
+      --text-30: #2D2421;         /* Sepia Escuro para Textos (Contraste 10:1) */
+      --text-muted: #5C4E4C;      /* Subtítulos e Rótulos */
+      --primary-10: #9E2A2B;      /* Terracota / Vinho (Destaque & CTA Primário) */
+      --primary-hover: #7E1F20;   /* Hover para CTA */
+      --secondary-sage: #5C765E;  /* Verde Sálvia (Acolhimento & Sucesso) */
+      --border-color: #E2D7CB;    /* Divisores Suaves */
+      
+      /* Tamanho de Fonte Base Dinâmico (Redimensionador A- / A / A+) */
+      --base-font-size: 18px;
+    }
+
+    /* Aplicação da Fonte Dinâmica */
+    html {
+      font-size: var(--base-font-size);
+      font-family: 'Open Sans', sans-serif;
+      color: var(--text-30);
+      background-color: var(--bg-60);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* -------------------------------------------------------------
+       2. ERGONOMIA & LEI DE FITTS (Mínimo de 48px de Alvo de Toque)
+       ------------------------------------------------------------- */
+    .touch-target {
+      min-height: 48px;
+      min-width: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Indicador Claro de Foco para Navegação por Teclado */
+    a:focus-visible, button:focus-visible, input:focus-visible {
+      outline: 4px solid var(--primary-10) !important;
+      outline-offset: 3px !important;
+    }
+
+    /* Animações e Transições Suaves */
+    .transition-all-custom {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vitalia 60+ - Afeto & Bem-Estar na Maturidade</title>
+
+  <!-- Tailwind CSS para estilização ágil -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Montserrat (Títulos) e Open Sans (Leitura) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome para Ícones Acessíveis -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/script.js"></script>
+
+  
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased">
+
+  <!-- ===================================================================
+       CABEÇALHO & BARRA DE ACESSIBILIDADE
+       =================================================================== -->
+  <header class="sticky top-0 z-40 bg-[#FDFBF7] border-b border-[#E2D7CB] shadow-sm">
+    
+    <!-- Barra Superior de Garantia e Acessibilidade -->
+    <div class="bg-[#3B2220] text-[#FAF7F2] py-2 px-4 text-sm font-semibold">
+      <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
+        
+        <!-- Mensagem de Garantia de Privacidade -->
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-user-shield text-[#E2D7CB]" aria-hidden="true"></i>
+          <span>🔒 Embalagem 100% Neutra | Fatura Discreta no Cartão</span>
+        </div>
+
+        <!-- Ferramentas de Acessibilidade WCAG -->
+        <div class="flex items-center gap-4 text-xs sm:text-sm">
+          <!-- Modificador de Tamanho de Fonte -->
+          <div class="flex items-center gap-1 bg-[#4A2E2B] px-2 py-1 rounded-md" aria-label="Controle de tamanho de texto">
+            <span class="mr-1 text-xs opacity-80">Texto:</span>
+            <button onclick="changeFontSize(-1)" class="touch-target px-2 hover:bg-[#A63A42] rounded font-bold" title="Diminuir texto" aria-label="Diminuir tamanho do texto">A-</button>
+            <button onclick="resetFontSize()" class="touch-target px-2 hover:bg-[#A63A42] rounded font-bold" title="Tamanho normal" aria-label="Restaurar tamanho padrão do texto">A</button>
+            <button onclick="changeFontSize(1)" class="touch-target px-2 hover:bg-[#A63A42] rounded font-bold" title="Aumentar texto" aria-label="Aumentar tamanho do texto">A+</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Navegação Principal & Logotipo -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex flex-wrap items-center justify-between gap-4">
+        
+        <!-- Marca / Logotipo Vitalia 60+ -->
+        <a href="#" class="flex items-center gap-3 group focus:outline-none" aria-label="Página Inicial Vitalia 60+">
+          <div class="w-12 h-12 rounded-full bg-[#9E2A2B] text-[#FAF7F2] flex items-center justify-center text-2xl font-bold shadow-md group-hover:scale-105 transition-transform">
+            <i class="fa-solid fa-heart" aria-hidden="true"></i>
+          </div>
+          <div>
+            <span class="block font-bold text-2xl tracking-tight text-[#2D2421]">Vitalia <span class="text-[#9E2A2B]">60+</span></span>
+            <span class="block text-xs font-semibold text-[#5C4E4C] tracking-wide">Afeto & Bem-Estar na Maturidade</span>
+          </div>
+        </a>
+
+        <!-- Barra de Busca Ampliada e Acessível -->
+        <div class="flex-1 max-w-lg min-w-[280px]">
+          <form onsubmit="handleSearch(event)" class="relative flex items-center">
+            <label for="search-input" class="sr-only">Buscar produtos de bem-estar</label>
+            <input 
+              type="text" 
+              id="search-input" 
+              placeholder="Buscar por lubrificantes, hidratação ou massagem..." 
+              class="w-full h-12 pl-4 pr-24 rounded-full border-2 border-[#E2D7CB] bg-[#F4EFEA] text-[#2D2421] placeholder-[#5C4E4C] text-base focus:border-[#9E2A2B] focus:bg-white transition-all shadow-inner"
+            >
+            <!-- Botão de Busca por Voz Simulada -->
+            <button 
+              type="button" 
+              onclick="simulateVoiceSearch()" 
+              class="absolute right-12 touch-target p-2 text-[#5C4E4C] hover:text-[#9E2A2B] rounded-full" 
+              title="Buscar por Voz" 
+              aria-label="Ativar pesquisa por voz"
+            >
+              <i class="fa-solid fa-microphone text-lg" aria-hidden="true"></i>
+            </button>
+            <!-- Botão Submit -->
+            <button 
+              type="submit" 
+              class="absolute right-1 h-10 w-10 bg-[#9E2A2B] text-white rounded-full flex items-center justify-center hover:bg-[#7E1F20] transition-colors" 
+              aria-label="Executar Busca"
+            >
+              <i class="fa-solid fa-magnifying-glass text-sm" aria-hidden="true"></i>
+            </button>
+          </form>
+        </div>
+
+        <!-- Ações do Usuário (WhatsApp Atendimento + Carrinho) -->
+        <div class="flex items-center gap-3">
+          <!-- Botão WhatsApp Direto -->
+          <button 
+            onclick="openWhatsAppDrawer()" 
+            class="touch-target px-4 py-2 bg-[#5C765E] hover:bg-[#485E4A] text-white font-bold rounded-full flex items-center gap-2 shadow-sm transition-transform active:scale-95"
+            aria-label="Abrir atendimento acolhedor no WhatsApp"
+          >
+            <i class="fa-brands fa-whatsapp text-xl" aria-hidden="true"></i>
+            <span class="hidden md:inline">Ajuda por WhatsApp</span>
+          </button>
+
+          <!-- Carrinho de Compras Discreto -->
+          <button 
+            onclick="toggleCartDrawer()" 
+            class="touch-target px-4 py-2 border-2 border-[#9E2A2B] text-[#9E2A2B] hover:bg-[#9E2A2B] hover:text-white font-bold rounded-full flex items-center gap-2 transition-colors relative"
+            aria-label="Abrir Carrinho com 2 itens"
+          >
+            <i class="fa-solid fa-basket-shopping text-lg" aria-hidden="true"></i>
+            <span class="hidden sm:inline">Carrinho</span>
+            <span class="bg-[#9E2A2B] text-white text-xs font-extrabold w-6 h-6 rounded-full flex items-center justify-center absolute -top-1 -right-1 border-2 border-white">2</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Menu de Categorias Estruturado -->
+      <nav class="mt-4 border-t border-[#E2D7CB] pt-3 hidden md:flex items-center justify-between text-base font-semibold text-[#2D2421]">
+        <a href="#catalogo" onclick="openCatalogModal('Intimidade a Dois')" class="hover:text-[#9E2A2B] py-2 px-3 rounded-md hover:bg-[#F4EFEA] transition-colors">❤️ Intimidade a Dois</a>
+        <a href="#catalogo" onclick="openCatalogModal('Conforto e Lubrificação')" class="hover:text-[#9E2A2B] py-2 px-3 rounded-md hover:bg-[#F4EFEA] transition-colors">💧 Conforto & Lubrificação</a>
+        <a href="#catalogo" onclick="openCatalogModal('Massagem e Relaxamento')" class="hover:text-[#9E2A2B] py-2 px-3 rounded-md hover:bg-[#F4EFEA] transition-colors">🌿 Massagem & Relaxamento</a>
+        <a href="#catalogo" onclick="openCatalogModal('Kits Afeto')" class="hover:text-[#9E2A2B] py-2 px-3 rounded-md hover:bg-[#F4EFEA] transition-colors">🎁 Kits Afeto</a>
+        <button onclick="openWhatsAppDrawer()" class="text-[#5C765E] hover:underline font-bold py-2 px-3">
+          <i class="fa-solid fa-comment-dots mr-1"></i> Atendimento Assistido
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================================================================
+       CONTEÚDO PRINCIPAL / PRIMEIRA DOBRA (HERO AREA)
+       =================================================================== -->
+  <main id="main-content" class="flex-grow">
+    
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+        
+        <!-- Coluna Esquerda: Texto Empático, CTAs e Garantias de Privacidade -->
+        <div class="lg:col-span-7 space-y-6">
+          
+          <!-- Badge Acolhedor -->
+          <div class="inline-flex items-center gap-2 bg-[#F4EFEA] border border-[#E2D7CB] px-4 py-2 rounded-full text-sm font-bold text-[#9E2A2B]">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            <span>Desenvolvido Especialmente para Pessoas Maduras</span>
+          </div>
+
+          <!-- Título de Alto Impacto Emocional -->
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#2D2421] leading-tight">
+            Reconecte-se com quem você ama com todo o <span class="text-[#9E2A2B] underline decoration-[#E2D7CB] underline-offset-8">conforto e discrição</span>.
+          </h1>
+
+          <!-- Subtítulo Respeitoso e Informativo -->
+          <p class="text-lg text-[#5C4E4C] leading-relaxed max-w-2xl">
+            Formulados respeitando as transformações naturais do corpo sênior (menopausa e andropausa). Produtos com hidratação suave, pH balanceado, sem fragrâncias agressivas e com entrega 100% confidencial.
+          </p>
+
+          <!-- Chamadas para Ação Primária (CTAs Ergonômicos) -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+            <!-- CTA 1: Explorar Produtos -->
+            <button 
+              onclick="openCatalogModal('Linha Afeto & Conexão')" 
+              class="touch-target px-8 py-4 bg-[#9E2A2B] hover:bg-[#7E1F20] text-white text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 text-center flex items-center justify-center gap-3"
+            >
+              <span>Explorar Linha Afeto & Conexão</span>
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </button>
+
+            <!-- CTA 2: Atendimento Humano Paciente -->
+            <button 
+              onclick="openWhatsAppDrawer()" 
+              class="touch-target px-6 py-4 border-2 border-[#5C765E] text-[#5C765E] hover:bg-[#5C765E] hover:text-white text-lg font-bold rounded-2xl transition-colors text-center flex items-center justify-center gap-2"
+            >
+              <i class="fa-brands fa-whatsapp text-xl" aria-hidden="true"></i>
+              <span>Falar com Atendente Humano</span>
+            </button>
+          </div>
+
+          <!-- Grid de Garantias e Selos de Segurança / Privacidade (Lei de Fitts e Hick) -->
+          <div class="pt-6 border-t border-[#E2D7CB] grid grid-cols-2 sm:grid-cols-4 gap-4">
+            
+            <div class="bg-[#F4EFEA] p-3 rounded-xl border border-[#E2D7CB] flex flex-col items-center text-center">
+              <i class="fa-solid fa-box text-2xl text-[#9E2A2B] mb-1" aria-hidden="true"></i>
+              <span class="text-xs font-bold text-[#2D2421]">Caixa Parda Neutra</span>
+              <span class="text-[11px] text-[#5C4E4C]">Sem nome de loja</span>
+            </div>
+
+            <div class="bg-[#F4EFEA] p-3 rounded-xl border border-[#E2D7CB] flex flex-col items-center text-center">
+              <i class="fa-solid fa-credit-card text-2xl text-[#9E2A2B] mb-1" aria-hidden="true"></i>
+              <span class="text-xs font-bold text-[#2D2421]">Nome Neutro</span>
+              <span class="text-[11px] text-[#5C4E4C]">Na fatura do cartão</span>
+            </div>
+
+            <div class="bg-[#F4EFEA] p-3 rounded-xl border border-[#E2D7CB] flex flex-col items-center text-center">
+              <i class="fa-solid fa-comments text-2xl text-[#5C765E] mb-1" aria-hidden="true"></i>
+              <span class="text-xs font-bold text-[#2D2421]">Suporte Paciente</span>
+              <span class="text-[11px] text-[#5C4E4C]">Sem robôs complexos</span>
+            </div>
+
+            <div class="bg-[#F4EFEA] p-3 rounded-xl border border-[#E2D7CB] flex flex-col items-center text-center">
+              <i class="fa-solid fa-truck-fast text-2xl text-[#5C765E] mb-1" aria-hidden="true"></i>
+              <span class="text-xs font-bold text-[#2D2421]">Entrega Discreta</span>
+              <span class="text-[11px] text-[#5C4E4C]">Direto na sua porta</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Coluna Direita: SIMULADOR INTERATIVO DE EMBALAGEM DISCRETA -->
+        <div class="lg:col-span-5">
+          <div class="bg-[#F4EFEA] rounded-3xl p-6 border-2 border-[#E2D7CB] shadow-xl relative overflow-hidden">
+            
+            <!-- Cabeçalho da Caixa do Simulador -->
+            <div class="flex items-center justify-between mb-4 border-b border-[#E2D7CB] pb-3">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-[#9E2A2B]">
+                <i class="fa-solid fa-shield-halved mr-1"></i> Garantia de Privacidade
+              </span>
+              <span class="text-xs font-bold bg-[#E2D7CB] text-[#2D2421] px-2 py-1 rounded-md">Simulador Interativo</span>
+            </div>
+
+            <h2 class="text-xl font-bold text-[#2D2421] mb-2">Como seu pedido chega até você?</h2>
+            <p class="text-sm text-[#5C4E4C] mb-4">Alterne abaixo para verificar como garantimos total discrição para sua tranquilidade.</p>
+
+            <!-- Abas do Simulador de Embalagem -->
+            <div class="grid grid-cols-2 gap-2 mb-6 bg-[#E2D7CB] p-1 rounded-xl">
+              <button 
+                id="btn-tab-produto" 
+                onclick="switchPackageView('produto')" 
+                class="touch-target py-2 px-3 text-sm font-bold rounded-lg transition-all bg-white text-[#9E2A2B] shadow-sm"
+              >
+                1. O Produto Escolhido
+              </button>
+              <button 
+                id="btn-tab-embalagem" 
+                onclick="switchPackageView('embalagem')" 
+                class="touch-target py-2 px-3 text-sm font-bold rounded-lg transition-all text-[#5C4E4C] hover:text-[#2D2421]"
+              >
+                2. Como Chega em Casa
+              </button>
+            </div>
+
+            <!-- Área Visual Dinâmica da Embalagem -->
+            <div class="bg-white rounded-2xl p-6 border border-[#E2D7CB] min-h-[260px] flex flex-col items-center justify-center text-center relative">
+              
+              <!-- Visão 1: Produto Elegante -->
+              <div id="view-produto" class="space-y-3 transition-opacity duration-300">
+                <div class="w-24 h-24 bg-[#F4EFEA] rounded-2xl mx-auto flex items-center justify-center border-2 border-[#9E2A2B]/20 text-[#9E2A2B]">
+                  <i class="fa-solid fa-bottle-droplet text-5xl" aria-hidden="true"></i>
+                </div>
+                <h3 class="font-bold text-lg text-[#2D2421]">Gel Hidratante Sérum Afeto 60+</h3>
+                <p class="text-xs text-[#5C4E4C]">Fórmula com Ácido Hialurônico e Extrato de Camomila. Sem perfume.</p>
+                <span class="inline-block bg-[#5C765E]/10 text-[#5C765E] font-bold text-xs px-3 py-1 rounded-full">Testado Dermatologicamente</span>
+              </div>
+
+              <!-- Visão 2: Caixa Parda Neutra (Simulação Realista) -->
+              <div id="view-embalagem" class="space-y-3 hidden transition-opacity duration-300">
+                <div class="w-48 h-28 bg-[#C8A078] rounded-xl mx-auto border-4 border-[#A07850] shadow-md flex flex-col justify-between p-3 relative overflow-hidden">
+                  <!-- Etiqueta de Envio Neutra -->
+                  <div class="bg-white text-left p-2 rounded border border-gray-400 text-[10px] space-y-0.5">
+                    <p class="font-bold text-gray-800 border-b pb-0.5">REMETENTE: V. SERVIÇOS LOGÍSTICOS S.A.</p>
+                    <p class="text-gray-600">DESTINATÁRIO: Maria H. (Confidencial)</p>
+                    <p class="text-gray-500 italic">Conteúdo: Utensílios de Autocuidado</p>
+                  </div>
+                  <div class="text-right">
+                    <span class="bg-[#A07850] text-white text-[9px] font-bold px-2 py-0.5 rounded">SEM MARCAÇÃO ADULTA</span>
+                  </div>
+                </div>
+                <h3 class="font-bold text-lg text-[#2D2421] text-emerald-800">100% Discreto & Seguro</h3>
+                <p class="text-xs text-[#5C4E4C]">A caixa parda simples não possui qualquer logomarca de intimidade nem menção aos produtos adquiridos.</p>
+              </div>
+
+            </div>
+
+            <!-- Legenda da Garantia -->
+            <p class="text-xs text-center text-[#5C4E4C] mt-4 italic">
+              <i class="fa-solid fa-lock text-[#9E2A2B] mr-1"></i> Seus vizinhos ou familiares jamais saberão o conteúdo da encomenda.
+            </p>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================================================================
+       RODAPÉ ACESSÍVEL E INFORMATIVO
+       =================================================================== -->
+  <footer class="bg-[#2D2421] text-[#FAF7F2] border-t-4 border-[#9E2A2B] pt-10 pb-6 mt-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-[#9E2A2B] text-white flex items-center justify-center font-bold">
+              <i class="fa-solid fa-heart text-sm"></i>
+            </div>
+            <span class="font-bold text-xl">Vitalia 60+</span>
+          </div>
+          <p class="text-sm text-[#D4C4B8] leading-relaxed">
+            Plataforma de e-commerce acessível dedicada ao bem-estar íntimo, conforto e afeto na maturidade.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-lg text-[#FAF7F2] mb-3">Atendimento e Ajuda</h4>
+          <ul class="space-y-2 text-sm text-[#D4C4B8]">
+            <li><button onclick="openWhatsAppDrawer()" class="hover:underline flex items-center gap-2"><i class="fa-brands fa-whatsapp text-[#5C765E]"></i> Falar no WhatsApp</button></li>
+            <li><a href="#" onclick="alert('Telefone de Suporte: 0800 606 0000 (Segunda a Sexta, 8h às 18h)')" class="hover:underline">Ligação Gratuita (0800)</a></li>
+            <li><a href="#" class="hover:underline">Como Funciona a Embalagem</a></li>
+            <li><a href="#" class="hover:underline">Política de Troca e Discrição</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-lg text-[#FAF7F2] mb-3">Compromisso WCAG</h4>
+          <p class="text-sm text-[#D4C4B8] leading-relaxed mb-2">
+            Este site foi desenhado para atender aos padrões internacionais de acessibilidade web (WCAG 2.1 nível AA), permitindo fácil navegação por idosos e leitores de tela.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="font-bold text-lg text-[#FAF7F2] mb-3">Formas de Pagamento Discretas</h4>
+          <div class="flex flex-wrap gap-2 text-2xl text-[#D4C4B8]">
+            <i class="fa-brands fa-pix" title="Pix"></i>
+            <i class="fa-solid fa-credit-card" title="Cartão de Crédito"></i>
+            <i class="fa-solid fa-barcode" title="Boleto Bancário"></i>
+          </div>
+          <p class="text-xs text-[#D4C4B8] mt-2">Aparecerá como "V. LOGISTICA S.A." no seu extrato.</p>
+        </div>
+
+      </div>
+
+      <div class="border-t border-[#4A3F3B] pt-6 text-center text-xs text-[#D4C4B8]">
+        <p>© 2026 Vitalia 60+ - Todos os direitos reservados. Projeto Acadêmico de Interface e UX/UI para E-commerce Sênior.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================
+       MODAL DE DRAWER: SIMULADOR DE ATENDIMENTO HUMANIZADO NO WHATSAPP
+       =================================================================== -->
+  <div id="whatsapp-drawer" class="fixed inset-0 bg-black/60 z-50 hidden transition-opacity duration-300 flex justify-end" role="dialog" aria-modal="true" aria-label="Atendimento Acolhedor WhatsApp">
+    <div class="w-full max-w-md bg-[#FAF7F2] h-full shadow-2xl flex flex-col justify-between animate-slide-left">
+      
+      <!-- Topo do Chat (Acolhedor) -->
+      <div class="bg-[#3B2220] text-white p-4 flex items-center justify-between border-b-4 border-[#5C765E]">
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <div class="w-10 h-10 rounded-full bg-[#5C765E] text-white flex items-center justify-center font-bold text-lg">
+              <i class="fa-solid fa-user-nurse"></i>
+            </div>
+            <span class="w-3 h-3 bg-emerald-500 border-2 border-white rounded-full absolute bottom-0 right-0"></span>
+          </div>
+          <div>
+            <h3 class="font-bold text-base">Dra. Carla - Vitalia 60+</h3>
+            <p class="text-xs text-[#D4C4B8]">Atendimento Humano Paciente</p>
+          </div>
+        </div>
+        <button onclick="closeWhatsAppDrawer()" class="touch-target p-2 text-[#D4C4B8] hover:text-white" aria-label="Fechar atendimento">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+
+      <!-- Corpo da Conversa Simulada -->
+      <div class="p-4 flex-1 overflow-y-auto space-y-4 bg-[#F4EFEA]" id="chat-messages">
+        
+        <!-- Mensagem do Sistema -->
+        <div class="text-center">
+          <span class="bg-[#E2D7CB] text-[#2D2421] text-[11px] font-bold px-3 py-1 rounded-full">
+            🔒 Conversa Privada e Criptografada
+          </span>
+        </div>
+
+        <!-- Mensagem do Atendente -->
+        <div class="flex items-start gap-2">
+          <div class="bg-white p-3 rounded-2xl rounded-tl-none border border-[#E2D7CB] max-w-[85%] text-sm text-[#2D2421] shadow-sm space-y-2">
+            <p class="font-bold text-[#9E2A2B]">Olá! Sou a Dra. Carla.</p>
+            <p>Seja muito bem-vindo(a) ao atendimento acolhedor do Vitalia 60+. Estou aqui para tirar qualquer dúvida sobre nossos produtos, uso para lubrificação na maturidade ou sobre a nossa embalagem discreta.</p>
+            <p class="text-xs text-gray-500 text-right">14:30</p>
+          </div>
+        </div>
+
+        <!-- Opções de Pergunta Rápida para a Persona -->
+        <div class="space-y-2 pt-2">
+          <p class="text-xs font-bold text-[#5C4E4C] uppercase tracking-wider">Clique para perguntar:</p>
+          <button onclick="sendSimulatedMessage('Como funciona a embalagem discreta?')" class="w-full text-left p-2.5 bg-white hover:bg-[#F4EFEA] border border-[#E2D7CB] rounded-xl text-xs font-semibold text-[#2D2421] transition-colors flex items-center justify-between">
+            <span>📦 Como funciona a embalagem discreta?</span>
+            <i class="fa-solid fa-chevron-right text-gray-400"></i>
+          </button>
+          <button onclick="sendSimulatedMessage('Qual produto é recomendado para ressecamento?')" class="w-full text-left p-2.5 bg-white hover:bg-[#F4EFEA] border border-[#E2D7CB] rounded-xl text-xs font-semibold text-[#2D2421] transition-colors flex items-center justify-between">
+            <span>💧 Qual produto é recomendado para ressecamento?</span>
+            <i class="fa-solid fa-chevron-right text-gray-400"></i>
+          </button>
+          <button onclick="sendSimulatedMessage('Posso fazer o pedido direto por aqui com sua ajuda?')" class="w-full text-left p-2.5 bg-white hover:bg-[#F4EFEA] border border-[#E2D7CB] rounded-xl text-xs font-semibold text-[#2D2421] transition-colors flex items-center justify-between">
+            <span>📞 Posso fazer o pedido direto por aqui com ajuda?</span>
+            <i class="fa-solid fa-chevron-right text-gray-400"></i>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Footer do WhatsApp (Campo de Entrada) -->
+      <div class="p-3 bg-white border-t border-[#E2D7CB] flex items-center gap-2">
+        <input type="text" id="chat-input" placeholder="Digite sua mensagem com calma..." class="flex-1 h-12 border border-[#E2D7CB] rounded-full px-4 text-sm focus:border-[#5C765E]">
+        <button onclick="handleUserChat()" class="touch-target w-12 h-12 bg-[#5C765E] text-white rounded-full flex items-center justify-center hover:bg-[#485E4A]">
+          <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL DO CATÁLOGO DE PRODUTOS / EXPLORAR LINHA
+       =================================================================== -->
+  <div id="catalog-modal" class="fixed inset-0 bg-black/60 z-50 hidden flex items-center justify-center p-4 overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="bg-[#FDFBF7] rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 border-2 border-[#E2D7CB] shadow-2xl space-y-6">
+      
+      <div class="flex items-center justify-between border-b border-[#E2D7CB] pb-4">
+        <div>
+          <span class="text-xs font-bold text-[#9E2A2B] uppercase">Linha Especial</span>
+          <h2 id="catalog-title" class="text-2xl font-bold text-[#2D2421]">Produtos Afeto & Conexão 60+</h2>
+        </div>
+        <button onclick="closeCatalogModal()" class="touch-target p-2 text-[#5C4E4C] hover:text-[#2D2421]" aria-label="Fechar catálogo">
+          <i class="fa-solid fa-xmark text-2xl"></i>
+        </button>
+      </div>
+
+      <!-- Grid de Produtos Acessíveis -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        
+        <!-- Produto 1 -->
+        <div class="bg-[#F4EFEA] p-5 rounded-2xl border border-[#E2D7CB] flex flex-col justify-between space-y-3">
+          <div class="w-full h-36 bg-white rounded-xl flex items-center justify-center text-[#9E2A2B] border border-[#E2D7CB]">
+            <i class="fa-solid fa-droplet text-5xl"></i>
+          </div>
+          <div>
+            <span class="bg-[#5C765E]/10 text-[#5C765E] text-xs font-bold px-2 py-0.5 rounded">Ácido Hialurônico</span>
+            <h3 class="font-bold text-lg text-[#2D2421] mt-1">Gel Hidratante Íntimo Suave 100ml</h3>
+            <p class="text-xs text-[#5C4E4C]">Fórmula à base de água, ideal para o ressecamento da menopausa. pH 4.5 neutro.</p>
+          </div>
+          <div class="flex items-center justify-between pt-2 border-t border-[#E2D7CB]">
+            <span class="font-extrabold text-xl text-[#9E2A2B]">R$ 59,90</span>
+            <button onclick="addToCart('Gel Hidratante Íntimo Suave', 59.90)" class="touch-target px-4 py-2 bg-[#9E2A2B] text-white font-bold text-sm rounded-xl hover:bg-[#7E1F20]">
+              <i class="fa-solid fa-plus mr-1"></i> Adicionar
+            </button>
+          </div>
+        </div>
+
+        <!-- Produto 2 -->
+        <div class="bg-[#F4EFEA] p-5 rounded-2xl border border-[#E2D7CB] flex flex-col justify-between space-y-3">
+          <div class="w-full h-36 bg-white rounded-xl flex items-center justify-center text-[#5C765E] border border-[#E2D7CB]">
+            <i class="fa-solid fa-spa text-5xl"></i>
+          </div>
+          <div>
+            <span class="bg-[#9E2A2B]/10 text-[#9E2A2B] text-xs font-bold px-2 py-0.5 rounded">Efeito Aquecimento Suave</span>
+            <h3 class="font-bold text-lg text-[#2D2421] mt-1">Óleo de Massagem Corporal Calmo</h3>
+            <p class="text-xs text-[#5C4E4C]">Toque aveludado com óleos essenciais de lavanda e amêndoas doces. Não gorduroso.</p>
+          </div>
+          <div class="flex items-center justify-between pt-2 border-t border-[#E2D7CB]">
+            <span class="font-extrabold text-xl text-[#9E2A2B]">R$ 68,00</span>
+            <button onclick="addToCart('Óleo de Massagem Calmo', 68.00)" class="touch-target px-4 py-2 bg-[#9E2A2B] text-white font-bold text-sm rounded-xl hover:bg-[#7E1F20]">
+              <i class="fa-solid fa-plus mr-1"></i> Adicionar
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="bg-[#3B2220] text-white p-4 rounded-xl text-xs flex items-center justify-between">
+        <span>🔒 Garantia Vitalia: Todos os itens são postados em caixa parda sem identificação externa.</span>
+        <button onclick="closeCatalogModal()" class="font-bold underline">Continuar Navegando</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL DE CARRINHO DISCRETO
+       =================================================================== -->
+  <div id="cart-drawer" class="fixed inset-0 bg-black/60 z-50 hidden transition-opacity duration-300 flex justify-end" role="dialog" aria-modal="true">
+    <div class="w-full max-w-md bg-[#FAF7F2] h-full shadow-2xl flex flex-col justify-between p-6">
+      
+      <div class="space-y-4">
+        <div class="flex items-center justify-between border-b border-[#E2D7CB] pb-3">
+          <h3 class="font-bold text-xl text-[#2D2421]"><i class="fa-solid fa-basket-shopping text-[#9E2A2B] mr-2"></i>Seu Carrinho Discreto</h3>
+          <button onclick="toggleCartDrawer()" class="touch-target p-2 text-[#5C4E4C]"><i class="fa-solid fa-xmark text-xl"></i></button>
+        </div>
+
+        <div class="space-y-3" id="cart-items-container">
+          <div class="p-3 bg-[#F4EFEA] rounded-xl flex items-center justify-between">
+            <div>
+              <p class="font-bold text-sm text-[#2D2421]">Gel Hidratante Íntimo Suave 100ml</p>
+              <p class="text-xs text-[#5C4E4C]">Qtd: 1 | R$ 59,90</p>
+            </div>
+            <span class="font-bold text-[#9E2A2B]">R$ 59,90</span>
+          </div>
+
+          <div class="p-3 bg-[#F4EFEA] rounded-xl flex items-center justify-between">
+            <div>
+              <p class="font-bold text-sm text-[#2D2421]">Óleo de Massagem Corporal Calmo</p>
+              <p class="text-xs text-[#5C4E4C]">Qtd: 1 | R$ 68,00</p>
+            </div>
+            <span class="font-bold text-[#9E2A2B]">R$ 68,00</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="border-t border-[#E2D7CB] pt-4 space-y-4">
+        <div class="flex justify-between items-center text-lg font-bold">
+          <span>Total do Pedido:</span>
+          <span class="text-[#9E2A2B] text-2xl" id="cart-total">R$ 127,90</span>
+        </div>
+
+        <div class="bg-[#5C765E]/10 p-3 rounded-xl text-xs text-[#5C765E] flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved text-base"></i>
+          <span>Fatura do cartão: <strong>V. LOGÍSTICA S.A.</strong></span>
+        </div>
+
+        <button onclick="alert('Simulação de Checkout Acessível: Pedido finalizado com sucesso e embalagem garantida!')" class="touch-target w-full py-4 bg-[#9E2A2B] hover:bg-[#7E1F20] text-white font-bold text-lg rounded-2xl text-center shadow-lg">
+          Finalizar Compra com Sigilo
+        </button>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>
